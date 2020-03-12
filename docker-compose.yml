@@ -1,0 +1,107 @@
+version: '3.7'
+
+services:
+  openrem:
+    container_name: openrem
+    restart: unless-stopped
+    image: openrem/openrem
+    command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - media_volume:/home/app/openrem/mediafiles
+      - static_volume:/home/app/openrem/staticfiles
+      - migrations_volume:/home/app/openrem/remapp/migrations
+      - type: bind
+        source: ./imports
+        target: /imports
+      - type: bind
+        source: ./logs
+        target: /logs
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - broker
+
+  worker:
+    restart: unless-stopped
+    image: openrem/openrem
+    command: celery worker -A openremproject -Q default --pidfile=/logs/celery.pid --logfile=/logs/celery.log
+    volumes:
+      - media_volume:/home/app/openrem/mediafiles
+      - type: bind
+        source: ./logs
+        target: /logs
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - broker
+
+  flower:
+    restart: unless-stopped
+    image: openrem/openrem
+    command: celery flower -A openremproject
+    volumes:
+      - type: bind
+        source: ./logs
+        target: /logs
+    expose:
+      - 5555
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - broker
+
+  db:
+    restart: unless-stopped
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod
+
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: openrem/nginx
+    volumes:
+      - media_volume:/home/app/openrem/mediafiles
+      - static_volume:/home/app/openrem/staticfiles
+    ports:
+      - 80:80
+    depends_on:
+      - openrem
+
+  broker:
+    restart: unless-stopped
+    image: rabbitmq:3-management-alpine
+
+  orthanc_1:
+    restart: unless-stopped
+    container_name: orthanc
+    image: openrem/orthanc
+    volumes:
+      - type: bind
+        source: ./imports
+        target: /imports
+    ports:
+#      - 8042:8042
+      - 104:4242
+    environment:
+      NAME: "OpenREM Orthanc"
+      DICOM_AET: "OPENREM"
+      AC_AUTHENTICATION_ENABLED: "true"
+      AC_REGISTERED_USERS: |
+        {"orthancuser": "demo"}
+      LUA_SCRIPTS: "[\"/etc/share/orthanc/scripts/openrem_orthanc_config_docker.lua\"]"
+      USE_PHYSICS_FILTERING: "true"
+      STATION_NAMES_TO_IGNORE: "{'CR85 Main', 'CR75 Main'}"
+
+volumes:
+  postgres_data:
+  media_volume:
+  static_volume:
+  migrations_volume:
