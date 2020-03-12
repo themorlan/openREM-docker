@@ -7,19 +7,19 @@ Instructions
 
 * Download and extract https://bitbucket.org/openrem/docker/get/master.zip and open a shell (command window) in the
   new folder
-* Customise any variables in `.env.prod`, `.env.prod.db` and in the `environment` section of `orthanc_1`
-  in `docker-compose.yml` as necessary. A full list of variables for Orthanc will be made available later.
+* Customise any variables in ``.env.prod``, ``.env.prod.db`` and in the ``environment`` section of ``orthanc_1``
+  in ``docker-compose.yml`` as necessary. A full list of variables for Orthanc will be made available later.
 
 Start the containers with:
 
-`docker-compose up -d`
+``docker-compose up -d``
 
 Get the database ready:
 
-* `docker-compose exec openrem python manage.py makemigrations remapp --noinput`
-* `docker-compose exec openrem python manage.py migrate --noinput`
-* `docker-compose exec openrem python manage.py createsuperuser`
-* `docker-compose exec openrem python manage.py collectstatic --noinput --clear`
+* ``docker-compose exec openrem python manage.py makemigrations remapp --noinput``
+* ``docker-compose exec openrem python manage.py migrate --noinput``
+* ``docker-compose exec openrem python manage.py createsuperuser``
+* ``docker-compose exec openrem python manage.py collectstatic --noinput --clear``
 
 Open a web browser and go to http://localhost/
 
