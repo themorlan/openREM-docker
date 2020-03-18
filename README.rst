@@ -5,9 +5,9 @@ Initial experimental development build of OpenREM 1.0.0dev0 in Docker.
 Instructions
 ============
 
-* Download and extract https://bitbucket.org/openrem/docker/get/master.zip and open a shell (command window) in the
+* Download and extract https://bitbucket.org/openrem/docker/get/issue793Finishingdocker.zip and open a shell (command window) in the
   new folder
-* Customise any variables in ``.env.prod``, ``.env.prod.db`` and in the ``environment`` section of ``orthanc_1``
+* Customise any variables in ``.env.prod`` and in the ``environment`` section of ``orthanc_1``
   in ``docker-compose.yml`` as necessary. A full list of variables for Orthanc will be made available later.
 
 Start the containers with:

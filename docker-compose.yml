@@ -4,7 +4,7 @@ services:
   openrem:
     container_name: openrem
     restart: unless-stopped
-    image: openrem/openrem
+    image: openrem/openrem:issue793Finishingdocker
     command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - media_volume:/home/app/openrem/mediafiles
@@ -26,7 +26,7 @@ services:
 
   worker:
     restart: unless-stopped
-    image: openrem/openrem
+    image: openrem/openrem:issue793Finishingdocker
     command: celery worker -A openremproject -Q default --pidfile=/logs/celery.pid --logfile=/logs/celery.log
     volumes:
       - media_volume:/home/app/openrem/mediafiles
@@ -41,7 +41,7 @@ services:
 
   flower:
     restart: unless-stopped
-    image: openrem/openrem
+    image: openrem/openrem:issue793Finishingdocker
     command: celery flower -A openremproject
     volumes:
       - type: bind
