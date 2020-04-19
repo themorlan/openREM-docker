@@ -89,10 +89,11 @@ services:
         target: /imports
     ports:
 #      - 8042:8042
-      - 104:4242
+      - 104:104
     environment:
       NAME: "OpenREM Orthanc"
       DICOM_AET: "OPENREM"
+      DICOM_PORT: 104
       AC_AUTHENTICATION_ENABLED: "true"
       AC_REGISTERED_USERS: |
         {"orthancuser": "demo"}
