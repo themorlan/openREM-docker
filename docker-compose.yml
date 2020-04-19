@@ -97,8 +97,13 @@ services:
       AC_REGISTERED_USERS: |
         {"orthancuser": "demo"}
       LUA_SCRIPTS: "[\"/etc/share/orthanc/scripts/openrem_orthanc_config_docker.lua\"]"
+      MANUFACTURERS_TO_IGNORE: "{}"
+      MODEL_NAMES_TO_IGNORE: "{}"
+      STATION_NAMES_TO_IGNORE: "{}"
+      SOFTWARE_VERSIONS_TO_IGNORE: "{}"
+      DEVICE_SERIAL_NUMBERS_TO_IGNORE: "{}"
       USE_PHYSICS_FILTERING: "true"
-      STATION_NAMES_TO_IGNORE: "{'CR85 Main', 'CR75 Main'}"
+      PHYSICS_TO_KEEP: "{'physics',}"
 
 volumes:
   postgres_data:
