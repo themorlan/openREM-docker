@@ -92,7 +92,7 @@ services:
         source: ./imports
         target: /imports
     ports:
-#      - 8042:8042
+      - 8042:8042
       - 104:104
     environment:
       ORTHANC__NAME: "OpenREM Orthanc"
