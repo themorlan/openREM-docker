@@ -84,7 +84,7 @@ services:
     image: rabbitmq:3-management-alpine
 
   orthanc_1:
-    container_name: openrem-orthanc
+    container_name: openrem-orthanc-1
     restart: unless-stopped
     image: openrem/orthanc
     volumes:
@@ -95,13 +95,13 @@ services:
 #      - 8042:8042
       - 104:104
     environment:
-      NAME: "OpenREM Orthanc"
-      DICOM_AET: "OPENREM"
-      DICOM_PORT: 104
-      AC_AUTHENTICATION_ENABLED: "true"
-      AC_REGISTERED_USERS: |
+      ORTHANC__NAME: "OpenREM Orthanc"
+      ORTHANC__DICOM_AET: "OPENREM"
+      ORTHANC__DICOM_PORT: 104
+      ORTHANC__AC_AUTHENTICATION_ENABLED: "true"
+      ORTHANC__REGISTERED_USERS: |
         {"orthancuser": "demo"}
-      LUA_SCRIPTS: "[\"/etc/share/orthanc/scripts/openrem_orthanc_config_docker.lua\"]"
+      ORTHANC__LUA_SCRIPTS: "[\"/etc/share/orthanc/scripts/openrem_orthanc_config_docker.lua\"]"
       MANUFACTURERS_TO_IGNORE: "{}"
       MODEL_NAMES_TO_IGNORE: "{}"
       STATION_NAMES_TO_IGNORE: "{}"
@@ -109,6 +109,9 @@ services:
       DEVICE_SERIAL_NUMBERS_TO_IGNORE: "{}"
       USE_PHYSICS_FILTERING: "true"
       PHYSICS_TO_KEEP: "{'physics',}"
+      USE_TOSHIBA_CT_EXTRACTOR: "true"
+      TOSHIBA_EXTRACTOR_SYSTEMS: |
+        {{'Toshiba', 'Aquilion'}, {'GE Medical Systems', 'Discovery STE'},}
 
 volumes:
   postgres_data:
