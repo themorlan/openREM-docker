@@ -107,11 +107,11 @@ services:
       STATION_NAMES_TO_IGNORE: "{}"
       SOFTWARE_VERSIONS_TO_IGNORE: "{}"
       DEVICE_SERIAL_NUMBERS_TO_IGNORE: "{}"
-      USE_PHYSICS_FILTERING: "true"
-      PHYSICS_TO_KEEP: "{'physics',}"
       USE_TOSHIBA_CT_EXTRACTOR: "true"
       TOSHIBA_EXTRACTOR_SYSTEMS: |
         {{'Toshiba', 'Aquilion'}, {'GE Medical Systems', 'Discovery STE'},}
+      USE_PHYSICS_FILTERING: "true"
+      PHYSICS_TO_KEEP: "{'physics',}"
 
 volumes:
   postgres_data:
