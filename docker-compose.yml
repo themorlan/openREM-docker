@@ -5,7 +5,7 @@ services:
     container_name: openrem
     restart: unless-stopped
     image: openrem/openrem:develop
-    command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000 --timeout 300
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
