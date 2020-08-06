@@ -77,6 +77,9 @@ services:
       - type: bind
         source: ./nginx-conf/conf.d
         target: /etc/nginx/conf.d
+      - type: bind
+        source: ./nginx-conf/certs
+        target: /etc/ssl/private
     ports:
       - 80:80
     depends_on:
