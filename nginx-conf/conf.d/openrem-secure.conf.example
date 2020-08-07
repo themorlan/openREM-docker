@@ -5,6 +5,16 @@ upstream openremproject {
 server {
 
     listen 80;
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name add_server_name_here;
+    ssl_certificate /etc/ssl/private/openrem.cer;
+    ssl_certificate_key /etc/ssl/private/openrem.key;
 
     location / {
         proxy_pass http://openremproject;
