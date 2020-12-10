@@ -11,6 +11,9 @@ services:
       - static_volume:/home/app/openrem/staticfiles
       - migrations_volume:/home/app/openrem/remapp/migrations
       - type: bind
+        source: ./exports
+        target: /home/app/openrem/mediafiles/exports
+      - type: bind
         source: ./imports
         target: /imports
       - type: bind
@@ -30,6 +33,9 @@ services:
     command: celery worker -A openremproject -Q default --pidfile=/logs/celery.pid --logfile=/logs/celery.log
     volumes:
       - media_volume:/home/app/openrem/mediafiles
+      - type: bind
+        source: ./exports
+        target: /home/app/openrem/mediafiles/exports
       - type: bind
         source: ./logs
         target: /logs
@@ -74,6 +80,9 @@ services:
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
+      - type: bind
+        source: ./exports
+        target: /home/app/openrem/mediafiles/exports
       - type: bind
         source: ./nginx-conf/conf.d
         target: /etc/nginx/conf.d
