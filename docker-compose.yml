@@ -97,6 +97,9 @@ services:
       - type: bind
         source: ./imports
         target: /imports
+      - type: bind
+        source: ./orthanc
+        target: /etc/share/orthanc/scripts/
     ports:
 #      - 8042:8042
       - 104:104
