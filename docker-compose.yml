@@ -115,11 +115,11 @@ services:
       USE_PHYSICS_FILTERING: "true"
       PHYSICS_TO_KEEP: "{'physics',}"
     secrets:
-      - orthanc_1.secret.json
+      - orthanc_1.json
 
-  secrets:
-    orthanc_1.secret.json
-      file: orthanc_1.secret.json
+secrets:
+  orthanc_1.json:
+    file: orthanc_1.json
 
 volumes:
   postgres_data:

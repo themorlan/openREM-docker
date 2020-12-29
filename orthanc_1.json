@@ -2,8 +2,8 @@
   "Name" : "OpenREM Orthanc",
   "DicomAet" : "OPENREM",
   "DicomPort" : 104,
-  "RemoteAccessAllowed" : "true",
-  "AuthenticationEnabled" : "true",
+  "RemoteAccessAllowed" : false,
+  "AuthenticationEnabled" : true,
   "RegisteredUsers" : {
     "orthancuser": "demo"
   },
