@@ -104,9 +104,6 @@ services:
 #      - 8042:8042
       - 104:104
     environment:
-      ORTHANC__NAME: "OpenREM Orthanc"
-      ORTHANC__DICOM_AET: "OPENREM"
-      ORTHANC__DICOM_PORT: 104
       MANUFACTURERS_TO_IGNORE: "{}"
       MODEL_NAMES_TO_IGNORE: "{}"
       STATION_NAMES_TO_IGNORE: "{}"
@@ -117,11 +114,12 @@ services:
         {{'Toshiba', 'Aquilion'}, {'GE Medical Systems', 'Discovery STE'},}
       USE_PHYSICS_FILTERING: "true"
       PHYSICS_TO_KEEP: "{'physics',}"
-      ORTHANC__REMOTE_ACCESS_ALLOWED: "true"
-      ORTHANC__AUTHENTICATION_ENABLED: "true"
-      ORTHANC__REGISTERED_USERS: |
-        {"orthancuser": "demo"}
-      ORTHANC__LUA_SCRIPTS: "[\"/etc/share/orthanc/scripts/openrem_orthanc_config_docker.lua\"]"
+    secrets:
+      - orthanc_1.secret.json
+
+  secrets:
+    orthanc_1.secret.json
+      file: orthanc_1.secret.json
 
 volumes:
   postgres_data:
