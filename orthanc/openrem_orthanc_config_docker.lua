@@ -1,5 +1,7 @@
 -------------------------------------------------------------------------------------
 -- OpenREM python environment and other settings
+-- This file has been configured for Docker use and should not normally be edited.
+-- See the documentation for details
 
 -- Set this to the path where you want Orthanc to temporarily store DICOM files
 local temp_path = '/imports/'
@@ -75,6 +77,9 @@ if toshiba_extractor_systems_val == "" or toshiba_extractor_systems_val == nil t
     }
 else load("toshiba_extractor_systems = " .. toshiba_extractor_systems_val)() end
 
+-------------------------------------------------------------------------------------
+-- Section above this point configured specifically for Docker installation
+-------------------------------------------------------------------------------------
 
 function ToAscii(s)
    -- http://www.lua.org/manual/5.1/manual.html#pdf-string.gsub
