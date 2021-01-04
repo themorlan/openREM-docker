@@ -27,7 +27,7 @@ services:
   worker:
     restart: unless-stopped
     image: openrem/openrem:develop
-    command: celery worker -A openremproject -Q default --pidfile=/logs/celery.pid --logfile=/logs/celery.log
+    command: celery worker -A openremproject -Q default --logfile=/logs/celery.log
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - type: bind
