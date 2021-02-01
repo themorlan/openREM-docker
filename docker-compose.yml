@@ -4,7 +4,7 @@ services:
   openrem:
     container_name: openrem
     restart: unless-stopped
-    image: openrem/openrem:develop
+    image: openrem/openrem:issue823nobindsecrets
     command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000 --timeout 300
     volumes:
       - media_volume:/home/app/openrem/mediafiles
@@ -22,7 +22,7 @@ services:
 
   worker:
     restart: unless-stopped
-    image: openrem/openrem:develop
+    image: openrem/openrem:issue823nobindsecrets
     command: celery worker -A openremproject -Q default --logfile=/logs/celery.log
     volumes:
       - media_volume:/home/app/openrem/mediafiles
@@ -35,7 +35,7 @@ services:
 
   flower:
     restart: unless-stopped
-    image: openrem/openrem:develop
+    image: openrem/openrem:issue823nobindsecrets
     command: celery flower -A openremproject
     volumes:
       - logs_volume:/logs
