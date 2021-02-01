@@ -64,8 +64,12 @@ services:
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
-      - nginx_conf:/etc/nginx/conf.d
-      - nginx_certs:/etc/ssl/private
+      - type: bind
+        source: ./nginx-conf/conf.d
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ./nginx-conf/certs
+        target: /etc/ssl/private
     ports:
       - 80:80
     depends_on:
@@ -81,7 +85,9 @@ services:
     image: openrem/orthanc
     volumes:
       - imports_volume:/imports
-      - orthanc_scripts:/etc/share/orthanc/scripts/
+      - type: bind
+        source: ./orthanc
+        target: /etc/share/orthanc/scripts/
     ports:
 #      - 8042:8042
       - 104:104
@@ -123,6 +129,3 @@ volumes:
   logs_volume:
   postgres_data:
   db_backup:
-  nginx_conf:
-  nginx_certs:
-  orthanc_scripts:
