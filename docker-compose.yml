@@ -65,12 +65,9 @@ services:
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
-      - type: bind
-        source: ./nginx-conf/conf.d
-        target: /etc/nginx/conf.d
-      - type: bind
-        source: ./nginx-conf/certs
-        target: /etc/ssl/private
+# For SELinux (RedHat, Fedora etc), add :z to the end of next two lines
+      - ./nginx-conf/conf.d:/etc/nginx/conf.d
+      - ./nginx-conf/certs:/etc/ssl/private
     ports:
       - 80:80
     depends_on:
@@ -87,9 +84,8 @@ services:
     image: openrem/orthanc
     volumes:
       - imports_volume:/imports
-      - type: bind
-        source: ./orthanc
-        target: /etc/share/orthanc/scripts/
+# For SELinux (RedHat, Fedora etc), add :z to the end of next line
+      - ./orthanc:/etc/share/orthanc/scripts/
     ports:
 #      - 8042:8042
       - 104:104
