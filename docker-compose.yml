@@ -87,8 +87,10 @@ services:
 # For SELinux (RedHat, Fedora etc), add :z to the end of next line
       - ./orthanc:/etc/share/orthanc/scripts/
     ports:
+# DICOM store port (first number)
+      - 104:4242
+# Othanc web interface
 #      - 8042:8042
-      - 104:104
     environment:
       MANUFACTURERS_TO_IGNORE: "{}"
       MODEL_NAMES_TO_IGNORE: "{}"
@@ -105,7 +107,6 @@ services:
         {
           // DICOM Store configuration
           "DicomAet" : "OPENREM",
-          "DicomPort" : 104,
           // Optional Orthan Web Interface
           "Name" : "OpenREM Orthanc",
           "RemoteAccessAllowed" : false,
