@@ -18,35 +18,6 @@ services:
       - ./.env.prod
     depends_on:
       - db
-      - broker
-
-  worker:
-    restart: unless-stopped
-    image: openrem/openrem:develop
-    command: celery worker -A openremproject -Q default --logfile=/logs/celery.log
-    volumes:
-      - media_volume:/home/app/openrem/mediafiles
-      - logs_volume:/logs
-    env_file:
-      - ./.env.prod
-    depends_on:
-      - db
-      - broker
-
-  flower:
-    container_name: openrem-flower
-    restart: unless-stopped
-    image: openrem/openrem:develop
-    command: celery flower -A openremproject
-    volumes:
-      - logs_volume:/logs
-    expose:
-      - 5555
-    env_file:
-      - ./.env.prod
-    depends_on:
-      - db
-      - broker
 
   db:
     container_name: openrem-db
@@ -72,11 +43,6 @@ services:
       - 80:80
     depends_on:
       - openrem
-
-  broker:
-    container_name: openrem-broker
-    restart: unless-stopped
-    image: rabbitmq:3-management-alpine
 
   orthanc_1:
     container_name: openrem-orthanc-1
