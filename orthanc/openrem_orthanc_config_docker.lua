@@ -285,8 +285,9 @@ function OnStoredInstance(instanceId)
     }
     local post_data = 'dicom_path=' .. temp_file_path .. '&import_type=' .. import_script
     HttpPost('http://nginx/import/from_docker/', post_data, headers)
-    -- Remove the temporary DICOM file
-    os.remove(temp_file_path)
+    
+    -- Removing temporary file is not allowed/necesary. If configured in the webinterface file will be deleted
+    -- by openrem after import
 
     -- Remove study from Orthanc
     Delete(instanceId)
