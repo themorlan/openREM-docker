@@ -4,7 +4,7 @@ services:
   openrem:
     container_name: openrem
     restart: unless-stopped
-    image: openrem/openrem:develop
+    image: openrem/openrem:issue94issue788issue934Merge
     command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000 --timeout 300
     volumes:
       - media_volume:/home/app/openrem/mediafiles
@@ -22,7 +22,7 @@ services:
   db:
     container_name: openrem-db
     restart: unless-stopped
-    image: postgres:12.0-alpine
+    image: postgres:12-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - db_backup:/db_backup
@@ -32,7 +32,7 @@ services:
   nginx:
     container_name: openrem-nginx
     restart: unless-stopped
-    image: nginx:1.17.8-alpine
+    image: nginx:stable-alpine
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
