@@ -91,7 +91,7 @@ end
 function ReceivedInstanceFilter(dicom)
     -- Only allow incoming objects we can use
     local mod = dicom.Modality
-    if (mod ~= 'SR') and (mod ~= 'CT') and (mod ~= 'MG') and (mod ~= 'CR') and (mod ~= 'DX') then
+     if (mod ~= 'SR') and (mod ~= 'CT') and (mod ~= 'MG') and (mod ~= 'CR') and (mod ~= 'DX') and (mod ~= 'PX') and (mod ~= 'PT') and (mod ~= 'NM') then
         return false
     else
         return true
@@ -201,6 +201,9 @@ function OnStoredInstance(instanceId)
         elseif instance_tags.SOPClassUID == '1.2.840.10008.5.1.4.1.1.88.22' then
             -- Enhanced SR used by GE CT Scanners
             import_script = 'rdsr'
+        elseif instance_tags.SOPClassUID == '1.2.840.10008.5.1.4.1.1.88.68' then
+            -- Radiopharmaceutical radiation dose SR
+            import_script = 'rdsr'
         end
     end
     if (instance_tags.Modality ~= nil) and (import_script == '') then
@@ -208,6 +211,8 @@ function OnStoredInstance(instanceId)
             import_script = 'mam'
         elseif (instance_tags.Modality == 'CR') or (instance_tags.Modality == 'DX') then
             import_script = 'dx'
+        elseif (instance_tags.Modality == 'PT') or (instance_tags.Modality == 'NM') then
+            import_script = 'nm'
         end
     end
     if (instance_tags.SOPClassUID ~= nil) and (instance_tags.Manufacturer ~= nil) and (import_script == '') then
@@ -286,8 +291,9 @@ function OnStoredInstance(instanceId)
     local post_data = 'dicom_path=' .. temp_file_path .. '&import_type=' .. import_script
     HttpPost('http://nginx/import/from_docker/', post_data, headers)
     
-    -- Removing temporary file is not allowed/necesary. If configured in the webinterface file will be deleted
+    -- Removing temporary file is not allowed/necessary. If configured in the webinterface file will be deleted
     -- by openrem after import
+    -- os.remove(temp_file_path)
 
     -- Remove study from Orthanc
     Delete(instanceId)
