@@ -4,7 +4,7 @@ services:
   openrem:
     container_name: openrem
     restart: unless-stopped
-    image: openrem/openrem:issue94issue788issue934Merge
+    image: openrem/openrem:develop
     command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000 --timeout 300
     volumes:
       - media_volume:/home/app/openrem/mediafiles
