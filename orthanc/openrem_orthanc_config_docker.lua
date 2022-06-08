@@ -89,9 +89,9 @@ end
 
 
 function ReceivedInstanceFilter(dicom)
-    -- Only allow incoming objects we can use
+    -- Only allow incoming objects we can use, plus XA and RF to enable physics filtering with XA/RF images
     local mod = dicom.Modality
-     if (mod ~= 'SR') and (mod ~= 'CT') and (mod ~= 'MG') and (mod ~= 'CR') and (mod ~= 'DX') and (mod ~= 'PX') and (mod ~= 'PT') and (mod ~= 'NM') then
+    if (mod ~= 'SR') and (mod ~= 'CT') and (mod ~= 'MG') and (mod ~= 'CR') and (mod ~= 'DX') and (mod ~= 'PX') and (mod ~= 'PT') and (mod ~= 'NM') and (mod ~= 'XA') and (mod ~= 'RF') then
         return false
     else
         return true
