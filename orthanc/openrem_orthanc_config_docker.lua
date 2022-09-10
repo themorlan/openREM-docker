@@ -81,6 +81,14 @@ else load("toshiba_extractor_systems = " .. toshiba_extractor_systems_val)() end
 -- Section above this point configured specifically for Docker installation
 -------------------------------------------------------------------------------------
 
+-- set virtual director to empty string if not defined
+local virtual_directory_val = os.getenv("VIRTUAL_DIRECTORY")
+if virtual_directory_val == nil then
+    virtual_directory_val = ""
+end
+
+-------------------------------------------------------------------------------------
+
 function ToAscii(s)
    -- http://www.lua.org/manual/5.1/manual.html#pdf-string.gsub
    -- https://groups.google.com/d/msg/orthanc-users/qMLgkEmwwPI/6jRpCrlgBwAJ
@@ -289,7 +297,7 @@ function OnStoredInstance(instanceId)
         ["Host"] = "nginx",
     }
     local post_data = 'dicom_path=' .. temp_file_path .. '&import_type=' .. import_script
-    HttpPost('http://nginx/import/from_docker/', post_data, headers)
+    HttpPost('http://nginx/' .. virtual_directory_val .. 'import/from_docker/', post_data, headers)
     
     -- Removing temporary file is not allowed/necessary. If configured in the webinterface file will be deleted
     -- by openrem after import
@@ -461,7 +469,7 @@ function OnStableStudy(studyId)
                     ["Host"] = "nginx",
                 }
                 local post_data = 'dicom_path=' .. temp_files_path .. '&import_type=ct_toshiba'
-                HttpPost('http://nginx/import/from_docker/', post_data, headers)
+                HttpPost('http://nginx/' .. virtual_directory_val .. 'import/from_docker/', post_data, headers)
 
                 -- Exit the function
                 return true
