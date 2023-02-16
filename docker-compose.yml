@@ -5,7 +5,6 @@ services:
     container_name: openrem
     restart: unless-stopped
     image: openrem/openrem:develop
-    command: gunicorn openremproject.wsgi:application --bind 0.0.0.0:8000 --timeout 300
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
@@ -18,6 +17,7 @@ services:
       - ./.env.prod
     depends_on:
       - db
+      - redis
 
   db:
     container_name: openrem-db
@@ -86,6 +86,13 @@ services:
           ]
         }
 
+  redis:
+    container_name: openrem-redis
+    restart: unless-stopped
+    image: redis:7-alpine
+    volumes:
+      - redis_volume:/usr/local/etc/redis
+
 volumes:
   media_volume:
   static_volume:
@@ -94,3 +101,4 @@ volumes:
   logs_volume:
   postgres_data:
   db_backup:
+  redis_volume:
