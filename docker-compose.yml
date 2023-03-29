@@ -4,7 +4,7 @@ services:
   openrem:
     container_name: openrem
     restart: unless-stopped
-    image: openrem/openrem:develop
+    image: openrem/openrem:1.0.0b1
     volumes:
       - media_volume:/home/app/openrem/mediafiles
       - static_volume:/home/app/openrem/staticfiles
