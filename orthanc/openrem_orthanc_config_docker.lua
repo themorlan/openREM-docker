@@ -217,7 +217,7 @@ function OnStoredInstance(instanceId)
     if (instance_tags.Modality ~= nil) and (import_script == '') then
         if instance_tags.Modality == 'MG' then
             import_script = 'mam'
-        elseif (instance_tags.Modality == 'CR') or (instance_tags.Modality == 'DX') then
+        elseif (instance_tags.Modality == 'CR') or (instance_tags.Modality == 'DX') or (instance_tags.Modality == 'PX') then
             import_script = 'dx'
         elseif (instance_tags.Modality == 'PT') or (instance_tags.Modality == 'NM') then
             import_script = 'nm'
